@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
 import Constants from 'expo-constants';
-import Text from './Text';
 import theme from '../theme';
 import AppBarTab from './AppBarTab';
 
