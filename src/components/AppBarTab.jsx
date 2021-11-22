@@ -1,20 +1,17 @@
 import React from 'react';
-import { View, StyleSheet, Pressable } from 'react-native';
+import { Pressable } from 'react-native';
 import Text from './Text';
+import { Link } from 'react-router-native';
 
-const styles = StyleSheet.create({
-    container: {
-        // ...something needed?
-    },
-});
-
-const AppBarTab = ({ handleOnPress, tabText }) => {
+const AppBarTab = ({ handleOnPress, tabText, linkTo }) => {
     return (
-        <View style={styles.container}>
-            <Pressable onPress={handleOnPress}>
-                <Text fontWeight="bold" fontSize="subheading" style={{ color: 'white' }}>{tabText}</Text>
-            </Pressable>
-        </View>
+        <Pressable onPress={handleOnPress}>
+            <Link to={linkTo}>
+                <Text fontWeight="bold" fontSize="subheading" style={{ color: 'white' }}>
+                    {tabText}
+                </Text>
+            </Link>;
+        </Pressable>
     );
 };
 
