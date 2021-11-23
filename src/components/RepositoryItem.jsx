@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, Button } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import Text from './Text';
 import theme from '../theme';
 
@@ -55,17 +55,17 @@ const RepositoryItem = ({ item }) => {
 
       <View style={styles.flexRowItemB}>
         <View style={styles.flexColItem}>
-          <Text fontWeight="bold">{item.stargazersCount>1000? (item.stargazersCount/1000).toFixed(1) +"k" : item.stargazersCount}</Text>
+          <Text fontWeight="bold">{item.stargazersCount>1000? (item.stargazersCount/1000).toFixed(1) +'k' : item.stargazersCount}</Text>
           <Text>Stars</Text>
         </View>
 
         <View style={styles.flexColItem}>
-          <Text fontWeight="bold">{item.forksCount>1000? (item.forksCount/1000).toFixed(1) +"k" : item.forksCount} </Text>
+          <Text fontWeight="bold">{item.forksCount>1000? (item.forksCount/1000).toFixed(1) +'k' : item.forksCount} </Text>
           <Text>Forks</Text>
         </View>
 
         <View style={styles.flexColItem}>
-          <Text fontWeight="bold">{item.reviewCount>1000? (item.reviewCount/1000).toFixed(1) +"k" : item.reviewCount}</Text>
+          <Text fontWeight="bold">{item.reviewCount>1000? (item.reviewCount/1000).toFixed(1) +'k' : item.reviewCount}</Text>
           <Text>Reviews</Text>
         </View>
 

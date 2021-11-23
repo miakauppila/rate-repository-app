@@ -18,13 +18,13 @@ const styles = StyleSheet.create({
 
 const handleOnPress = () => {
   console.log('onPressFunction');
-}
+};
 
 const AppBar = () => {
   return (
     <View style={styles.container}>
-      <AppBarTab handleOnPress={handleOnPress} tabText={"Repositories"} linkTo={"/"} />
-      <AppBarTab handleOnPress={handleOnPress} tabText={"Sign in"}  linkTo={"/signin"} />
+      <AppBarTab handleOnPress={handleOnPress} tabText={'Repositories'} linkTo={'/'} />
+      <AppBarTab handleOnPress={handleOnPress} tabText={'Sign in'}  linkTo={'/signin'} />
     </View>
   );
 };
