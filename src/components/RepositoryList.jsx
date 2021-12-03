@@ -12,10 +12,10 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryList = () => {
-  // use custom hook to fetch repositories
+  // use custom hook to fetch repositories from GraphQL
   const { repositories } = useRepositories();
 
-  // Get the nodes from the edges array, which includes nodes (=repos)
+  // Get the nodes from the edges array, where nodes = repos
   const repositoryNodes = repositories ?
     repositories.edges.map(edge => edge.node)
     : [];
