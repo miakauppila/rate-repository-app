@@ -5,6 +5,7 @@ import { Pressable, View, StyleSheet } from 'react-native';
 import { Formik } from 'formik';
 import theme from '../theme';
 import * as yup from 'yup';
+import useSignIn from '../hooks/useSignIn';
 
 const styles = StyleSheet.create({
   form: {
@@ -22,9 +23,9 @@ const styles = StyleSheet.create({
 });
 
 const validationSchema = yup.object().shape({
-  userName: yup
+  username: yup
     .string()
-    .min(6, 'Username must have min. 6 characters')
+    .min(5, 'Username must have min. 5 characters')
     .required('Username is required'),
   password: yup
     .string()
@@ -33,14 +34,14 @@ const validationSchema = yup.object().shape({
 });
 
 const initialValues = {
-  userName: '',
+  username: '',
   password: '',
 };
 
 const SignInForm = ({ onSubmit }) => {
   return (
     <View style={styles.form}>
-      <FormikTextInput name="userName" placeholder="Username" />
+      <FormikTextInput name="username" placeholder="Username" />
       <FormikTextInput name="password" placeholder="Password" secureTextEntry={true} />
       <Pressable onPress={onSubmit}>
         <Text style={styles.button}>Sign in</Text>
@@ -51,8 +52,18 @@ const SignInForm = ({ onSubmit }) => {
 
 const SignIn = () => {
 
-  const onSubmit = (values) => {
-    console.log(values);
+  // call the signIn fn from the hook
+  const [signIn] = useSignIn();
+
+  const onSubmit = async (values) => {
+    const { username, password } = values;
+
+    try {
+      const data = await signIn({ username, password });
+      console.log('result in Signin component:', data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
