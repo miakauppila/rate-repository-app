@@ -6,6 +6,7 @@ import { Formik } from 'formik';
 import theme from '../theme';
 import * as yup from 'yup';
 import useSignIn from '../hooks/useSignIn';
+import { useHistory } from 'react-router-native';
 
 const styles = StyleSheet.create({
   form: {
@@ -52,6 +53,8 @@ const SignInForm = ({ onSubmit }) => {
 
 const SignIn = () => {
 
+  let history = useHistory();
+
   // call the signIn fn from the hook
   const [signIn] = useSignIn();
 
@@ -59,8 +62,8 @@ const SignIn = () => {
     const { username, password } = values;
 
     try {
-      const data = await signIn({ username, password });
-      console.log('result in Signin component:', data);
+      await signIn({ username, password });
+      history.push('/');
     } catch (e) {
       console.log(e);
     }
