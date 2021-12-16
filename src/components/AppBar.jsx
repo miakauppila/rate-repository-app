@@ -3,6 +3,9 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import theme from '../theme';
 import AppBarTab from './AppBarTab';
+import useAuthorizedUser from '../hooks/useAuthorizedUser';
+import useAuthStorage from '../hooks/useAuthStorage';
+import { useApolloClient } from '@apollo/client';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,16 +22,35 @@ const styles = StyleSheet.create({
   }
 });
 
-const handleOnPress = () => {
-  console.log('onPressFunction');
-};
-
 const AppBar = () => {
+  // use custom hook to fetch authorizedUser from GraphQL
+  const { authorizedUser } = useAuthorizedUser();
+
+  // access authStorageContext via custom hook
+  const authStorage = useAuthStorage();
+
+  // access ApolloClient instance used by the application 
+  const apolloClient = useApolloClient();
+
+  const handleOnPress = () => {
+    console.log('handleOnPress');
+  };
+
+  const handleSignOut = async () => {
+    await authStorage.removeAccessToken();
+    apolloClient.resetStore();
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView horizontal={true} contentContainerStyle={styles.scrollView}>
-        <AppBarTab handleOnPress={handleOnPress} tabText={'Repositories'} linkTo={'/'} />
-        <AppBarTab handleOnPress={handleOnPress} tabText={'Sign in'} linkTo={'/signin'} />
+        <AppBarTab linkTo="/" handleOnPress={handleOnPress} tabText={'Repositories'} />
+        {authorizedUser &&
+          <AppBarTab linkTo="/signin" handleOnPress={handleSignOut} tabText={'Sign out'} />
+        }
+        {!authorizedUser &&
+          <AppBarTab linkTo="/signin" handleOnPress={handleOnPress} tabText={'Sign in'} />
+        }
       </ScrollView>
     </View>
   );

@@ -11,13 +11,15 @@ const styles = StyleSheet.create({
 
 const AppBarTab = ({ handleOnPress, tabText, linkTo }) => {
     return (
-        <Pressable onPress={handleOnPress} style={styles.pressable}>
-            <Link to={linkTo}>
-                <Text fontWeight="bold" fontSize="subheading" style={{ color: 'white' }}>
-                    {tabText}
-                </Text>
-            </Link>
-        </Pressable>
+        <Link to={linkTo}
+            component={Pressable}
+            style={styles.pressable}
+            onPress={handleOnPress}
+        >
+            <Text fontWeight="bold" fontSize="subheading" style={{ color: 'white' }}>
+                {tabText}
+            </Text>
+        </Link>
     );
 };
 
