@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import Text from './Text';
-import theme from '../theme';
+import Text from '../Text';
+import theme from '../../theme';
 
 const styles = StyleSheet.create({
   item: {
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     marginRight: 20
   },
   languageTag: {
-    alignSelf: 'baseline',
+    alignSelf: 'baseline', // to fit text width
     backgroundColor: theme.colors.primary,
     padding: 5,
     color: 'white',
@@ -46,9 +46,9 @@ const RepositoryItem = ({ item }) => {
           source={{ uri: item.ownerAvatarUrl }}
         />
         <View style={styles.flexColItem}>
-          <Text fontWeight="bold" fontSize="subheading">{item.fullName}</Text>
-          <Text color="textSecondary">{item.description}</Text>
-          <Text style={styles.languageTag}>{item.language}</Text>
+          <Text fontWeight="bold" fontSize="subheading" testID="name">{item.fullName}</Text>
+          <Text color="textSecondary" testID="description">{item.description}</Text>
+          <Text style={styles.languageTag} testID="language">{item.language}</Text>
         </View>
       </View>
 
