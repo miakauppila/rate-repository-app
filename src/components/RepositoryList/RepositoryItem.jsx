@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, Pressable } from 'react-native';
 import Text from '../Text';
 import theme from '../../theme';
+import * as Linking from 'expo-linking';
 
 const styles = StyleSheet.create({
   item: {
@@ -16,7 +17,8 @@ const styles = StyleSheet.create({
   },
   flexRowItemB: {
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    paddingBottom: 10,
   },
   flexColItem: {
     flex: 1,
@@ -34,10 +36,32 @@ const styles = StyleSheet.create({
     padding: 5,
     color: 'white',
     borderRadius: 3,
+  },
+  githubBtn: {
+    textAlign: 'center',
+    backgroundColor: theme.colors.primary,
+    padding: 5,
+    color: 'white',
+    borderRadius: 3,
   }
 });
 
-const RepositoryItem = ({ item }) => {
+// displayed inside RepositoryItem when prop showLink=true
+const RepositoryLinking = ({ repository }) => {
+  const handleLinkToGithub = () => {
+    Linking.openURL(repository.url);
+  };
+  return (
+    <View>
+      <Pressable onPress={handleLinkToGithub}>
+        <Text fontWeight="bold" style={styles.githubBtn}>Open in GitHub</Text>
+      </Pressable>
+    </View>
+  );
+};
+
+const RepositoryItem = ({ item, showLink }) => {
+
   return (
     <View style={styles.item}>
       <View style={styles.flexRowItemA}>
@@ -73,6 +97,11 @@ const RepositoryItem = ({ item }) => {
           <Text>Rating</Text>
         </View>
       </View>
+
+      {showLink &&
+        <RepositoryLinking repository={item} />
+      }
+
     </View>
   );
 };
