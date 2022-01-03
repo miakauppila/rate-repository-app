@@ -1,10 +1,10 @@
 import React from 'react';
 import useRepository from '../../hooks/useRepository';
 import { useParams } from 'react-router-native';
-import RepositoryItem from './RepositoryItem';
+import SingleRepositoryContainer from './SingleRepositoryContainer';
 
 // side effect is isolated to this component
-const SingleRepositoryView = () => {
+const SingleRepository = () => {
 
   // get the repositoryId from url (match.params)
   let { repositoryId } = useParams();
@@ -20,8 +20,8 @@ const SingleRepositoryView = () => {
   }
 
   return (
-    <RepositoryItem item={repository} showLink={true} />
+    <SingleRepositoryContainer repository={repository} />
   );
 };
 
-export default SingleRepositoryView;
+export default SingleRepository;
