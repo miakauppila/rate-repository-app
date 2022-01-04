@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Pressable } from 'react-native';
-import Text from './Text';
+import Text from './Shared/Text';
 import { Link } from 'react-router-native';
 
 const styles = StyleSheet.create({

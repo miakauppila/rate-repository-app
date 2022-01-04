@@ -1,9 +1,9 @@
 import React from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
-import Text from '../Text';
+import Text from '../Shared/Text';
 import theme from '../../theme';
 import RepositoryItem from './RepositoryItem';
-import { format } from 'date-fns'
+import { format } from 'date-fns';
 
 const styles = StyleSheet.create({
   item: {
@@ -82,7 +82,7 @@ const SingleRepositoryContainer = ({ repository }) => {
       ItemSeparatorComponent={ItemSeparator}
       renderItem={({ item }) => <ReviewItem review={item} />}
       keyExtractor={({ id }) => id}
-      ListHeaderComponent={() => <RepositoryInfo repository={repository}/>}
+      ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
     />
   );
 };

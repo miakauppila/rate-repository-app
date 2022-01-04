@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Image, Pressable } from 'react-native';
-import Text from '../Text';
+import Text from '../Shared/Text';
 import theme from '../../theme';
 import * as Linking from 'expo-linking';
 

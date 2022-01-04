@@ -1,6 +1,6 @@
 import React from 'react';
-import Text from '../Text';
-import FormikTextInput from './FormikTextInput';
+import Text from '../Shared/Text';
+import FormikTextInput from '../Shared/FormikTextInput';
 import { Pressable, View, StyleSheet } from 'react-native';
 import theme from '../../theme';
 
