@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import SignInForm from './SignInForm';
+import SignUpForm from '../SignUp/SignUpForm';
 
 const validationSchema = yup.object().shape({
   username: yup
@@ -14,24 +14,28 @@ const validationSchema = yup.object().shape({
     .min(5, 'Password must have min. 5 characters')
     .max(50, 'Password must have max. 50 characters')
     .required('Password is required'),
+  passwordConfirmation: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'Passwords must match')
+    .required('Password confirmation is required')
 });
 
 const initialValues = {
   username: '',
   password: '',
+  passwordConfirmation: ''
 };
 
-// presentational component
-const SignInContainer = ({ onSubmit }) => {
+const SignUpContainer = ({ onSubmit }) => {
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
-      {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
+      {({ handleSubmit }) => <SignUpForm onSubmit={handleSubmit} />}
     </Formik>
   );
 };
 
-export default SignInContainer;
+export default SignUpContainer;

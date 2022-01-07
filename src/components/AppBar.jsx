@@ -49,10 +49,13 @@ const AppBar = () => {
           <AppBarTab linkTo="/review" handleOnPress={handleOnPress} tabText={'Create a review'} />
         }
         {authorizedUser &&
-          <AppBarTab linkTo="/signin" handleOnPress={handleSignOut} tabText={'Sign out'} />
+          <AppBarTab linkTo="/" handleOnPress={handleSignOut} tabText={'Sign out'} />
         }
         {!authorizedUser &&
           <AppBarTab linkTo="/signin" handleOnPress={handleOnPress} tabText={'Sign in'} />
+        }
+        {!authorizedUser &&
+          <AppBarTab linkTo="/signup" handleOnPress={handleOnPress} tabText={'Sign up'} />
         }
       </ScrollView>
     </View>
