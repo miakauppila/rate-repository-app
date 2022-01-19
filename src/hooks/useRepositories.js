@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { GET_REPOSITORIES } from '../graphql/queries';
 
-const useRepositories = (selectedOrder) => {
+const useRepositories = (selectedOrder, searchKeyword) => {
 
   let selectedArgument;
   let selectedDirection;
@@ -14,16 +14,17 @@ const useRepositories = (selectedOrder) => {
     selectedArgument = 'RATING_AVERAGE';
     selectedDirection = 'DESC';
   }
-  else if(selectedOrder === 'lowest') {
-      selectedArgument = 'RATING_AVERAGE';
-      selectedDirection = 'ASC';
+  else if (selectedOrder === 'lowest') {
+    selectedArgument = 'RATING_AVERAGE';
+    selectedDirection = 'ASC';
   }
 
   const { data, error, loading } = useQuery(GET_REPOSITORIES,
     {
       variables: {
         orderBy: selectedArgument,
-        direction: selectedDirection
+        direction: selectedDirection,
+        searchKeyword: searchKeyword
       },
       fetchPolicy: 'cache-and-network'
     });

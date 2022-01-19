@@ -2,7 +2,8 @@ import React from 'react';
 import { FlatList, View, StyleSheet, Pressable } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import RepositoryItem from './RepositoryItem';
-import { useHistory } from 'react-router-native';
+import { Link } from 'react-router-native';
+import { Searchbar } from 'react-native-paper';
 
 const styles = StyleSheet.create({
   separator: {
@@ -15,11 +16,17 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-// presentational component for RepositoryList
-const RepositoryListContainer = ({ repositories, selectedOrder, changeSelectedOrder }) => {
+const RepositoryListHeader = ({ selectedOrder, changeSelectedOrder, searchText, changeSearchText }) => {
 
-  const getPicker = () => {
-    return (
+  const onChangeSearch = (text) => changeSearchText(text);
+
+  return (
+    <View>
+      <Searchbar
+        placeholder="Search"
+        onChangeText={onChangeSearch}
+        value={searchText}
+      />
       <Picker
         selectedValue={selectedOrder}
         onValueChange={(itemValue) =>
@@ -32,37 +39,55 @@ const RepositoryListContainer = ({ repositories, selectedOrder, changeSelectedOr
         <Picker.Item label="Highest rated repositories" value="highest" />
         <Picker.Item label="Lowest rated repositories" value="lowest" />
       </Picker>
+    </View>
+  );
+};
+
+class RepositoryListContainer extends React.Component {
+
+  renderHeader = () => {
+    const { selectedOrder, changeSelectedOrder, searchText, changeSearchText } = this.props;
+
+    return (
+      <RepositoryListHeader
+        selectedOrder={selectedOrder}
+        changeSelectedOrder={changeSelectedOrder}
+        searchText={searchText}
+        changeSearchText={changeSearchText}
+      />
     );
   };
 
-  // Get the nodes from the edges array, where nodes = repos
-  const repositoryNodes = repositories ?
-    repositories.edges.map((edge) => edge.node)
-    : [];
-
-  let history = useHistory();
-
   // redirect to SingleRepositoryView route
-  const onPressFunction = (repositoryId) => {
-    history.push(`/${repositoryId}`);
-  };
-
-  const renderItem = ({ item }) => (
-    <Pressable onPress={() => onPressFunction(item.id)} >
+  renderItem = ({ item }) => (
+    <Link to={`/${item.id}`}
+      component={Pressable}
+      onPress={() => console.log('Pressed RepositoryItem')}
+    >
       <RepositoryItem item={item} />
-    </Pressable>
+    </Link>
+
   );
 
+  render() {
+    const { repositories } = this.props;
 
-  return (
-    <FlatList
-      data={repositoryNodes}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem={renderItem}
-      keyExtractor={item => item.id}
-      ListHeaderComponent={getPicker}
-    />
-  );
-};
+    // Get the nodes from the edges array, where nodes = repos
+    const repositoryNodes = repositories ?
+      repositories.edges.map((edge) => edge.node)
+      : [];
+
+    return (
+      <FlatList
+        data={repositoryNodes}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={this.renderItem}
+        keyExtractor={item => item.id}
+        ListHeaderComponent={this.renderHeader}
+      />
+    );
+  }
+
+}
 
 export default RepositoryListContainer;
