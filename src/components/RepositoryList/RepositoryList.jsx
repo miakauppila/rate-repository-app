@@ -14,7 +14,12 @@ const RepositoryList = () => {
   const [searchKeyword] = useDebounce(searchText, 500);
 
   // use custom hook to fetch repositories from GraphQL
-  const { repositories } = useRepositories(selectedOrder, searchKeyword);
+  const { repositories, fetchMore } = useRepositories(selectedOrder, searchKeyword);
+
+  const handleEndReach = () => {
+    console.log('You have reached the end of the list');
+    fetchMore();
+  };
 
   return (
     <RepositoryListContainer
@@ -23,6 +28,7 @@ const RepositoryList = () => {
       changeSelectedOrder={setSelectedOrder}
       searchText={searchText}
       changeSearchText={setSearchText}
+      handleEndReach={handleEndReach}
     />
   );
 };

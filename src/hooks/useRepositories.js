@@ -19,19 +19,40 @@ const useRepositories = (selectedOrder, searchKeyword) => {
     selectedDirection = 'ASC';
   }
 
-  const { data, error, loading } = useQuery(GET_REPOSITORIES,
-    {
+  const variables = {
+    orderBy: selectedArgument,
+    direction: selectedDirection,
+    searchKeyword: searchKeyword,
+    first: 8
+  };
+
+  const { data, error, loading, fetchMore, ...result } = useQuery(GET_REPOSITORIES, {
+    variables,
+    fetchPolicy: 'cache-and-network'
+  });
+
+  const handleFetchMore = () => {
+    const canFetchMore = !loading && data?.repositories.pageInfo.hasNextPage;
+
+    if (!canFetchMore) {
+      return;
+    }
+
+    fetchMore({
       variables: {
-        orderBy: selectedArgument,
-        direction: selectedDirection,
-        searchKeyword: searchKeyword
+        after: data.repositories.pageInfo.endCursor,
+        ...variables,
       },
-      fetchPolicy: 'cache-and-network'
     });
+  };
 
-  const repositories = data?.repositories;
-
-  return { repositories, error, loading };
+  return {
+    repositories: data?.repositories,
+    fetchMore: handleFetchMore,
+    error,
+    loading,
+    ...result
+  };
 };
 
 export default useRepositories;

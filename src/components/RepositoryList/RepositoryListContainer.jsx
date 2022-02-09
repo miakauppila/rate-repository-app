@@ -70,7 +70,7 @@ class RepositoryListContainer extends React.Component {
   );
 
   render() {
-    const { repositories } = this.props;
+    const { repositories, handleEndReach } = this.props;
 
     // Get the nodes from the edges array, where nodes = repos
     const repositoryNodes = repositories ?
@@ -84,6 +84,8 @@ class RepositoryListContainer extends React.Component {
         renderItem={this.renderItem}
         keyExtractor={item => item.id}
         ListHeaderComponent={this.renderHeader}
+        onEndReached={handleEndReach}
+        onEndReachedThreshold={0.5}
       />
     );
   }
