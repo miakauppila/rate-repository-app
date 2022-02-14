@@ -3,16 +3,38 @@ import { GET_REPOSITORY } from '../graphql/queries';
 
 const useRepository = (repositoryId) => {
 
-  const { data, error, loading} = useQuery(GET_REPOSITORY, {
-    variables: { id: repositoryId },
+  const variables = {
+    id: repositoryId,
+    first: 5 // first: 5 does not activate fetchMore when SingleRepository loads
+  };
+
+  const { data, error, loading, fetchMore, ...result } = useQuery(GET_REPOSITORY, {
+    variables,
     fetchPolicy: 'cache-and-network'
   });
 
-  console.log('Single repo', data);
+  const handleFetchMore = () => {
+    const canFetchMore = !loading && data?.repository.reviews.pageInfo.hasNextPage;
 
-  const repository = data?.repository;
+    if (!canFetchMore) {
+      return;
+    }
 
-  return { repository, error, loading };
+    fetchMore({
+      variables: {
+        after: data.repository.reviews.pageInfo.endCursor,
+        ...variables,
+      },
+    });
+  };
+
+  return { 
+    repository: data?.repository,
+    error,
+    loading,
+    fetchMore: handleFetchMore,
+    ...result
+   };
 };
 
 export default useRepository;

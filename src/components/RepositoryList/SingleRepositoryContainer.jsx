@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, View, StyleSheet, ActivityIndicator } from 'react-native';
 import Text from '../Shared/Text';
 import theme from '../../theme';
 import RepositoryItem from './RepositoryItem';
@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
+// adds item separator below the flatlist header
 const RepositoryInfo = ({ repository }) => {
-  // adds itemseparator below the flatlist header
   return (
     <View>
       <RepositoryItem item={repository} showLink={true} />
@@ -69,7 +69,16 @@ const ReviewItem = ({ review }) => {
   );
 };
 
-const SingleRepositoryContainer = ({ repository }) => {
+const SingleRepositoryContainer = ({ repository, loadingMore, handleEndReach }) => {
+
+  const renderFooter = () => {
+    if(!loadingMore) return null;
+
+    return (
+      <ActivityIndicator size="large" color="#24292e" />
+    );
+
+  };
 
   // Get the nodes from the edges array, where node = review
   const reviews = repository ?
@@ -82,7 +91,10 @@ const SingleRepositoryContainer = ({ repository }) => {
       ItemSeparatorComponent={ItemSeparator}
       renderItem={({ item }) => <ReviewItem review={item} />}
       keyExtractor={({ id }) => id}
-      ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
+      ListHeaderComponent={<RepositoryInfo repository={repository} />}
+      onEndReached={handleEndReach}
+      onEndReachedThreshold={0.5}
+      ListFooterComponent={renderFooter}
     />
   );
 };
