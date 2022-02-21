@@ -49,6 +49,9 @@ const AppBar = () => {
           <AppBarTab linkTo="/review" handleOnPress={handleOnPress} tabText={'Create a review'} />
         }
         {authorizedUser &&
+          <AppBarTab linkTo="/myreviews" handleOnPress={handleOnPress} tabText={'My reviews'} />
+        }
+        {authorizedUser &&
           <AppBarTab linkTo="/" handleOnPress={handleSignOut} tabText={'Sign out'} />
         }
         {!authorizedUser &&
