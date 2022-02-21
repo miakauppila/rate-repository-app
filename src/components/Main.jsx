@@ -5,7 +5,7 @@ import RepositoryList from './RepositoryList/RepositoryList';
 import SignIn from './SignIn/SignIn';
 import AppBar from './AppBar';
 import { Route, Switch, Redirect } from 'react-router-native';
-import SingleRepository from './RepositoryList/SingleRepository';
+import SingleRepository from './SingleRepository/SingleRepository';
 import Review from './Review/Review';
 import SignUp from './SignUp/SignUp';
 import UserReviews from './UserReviews/UserReviews';

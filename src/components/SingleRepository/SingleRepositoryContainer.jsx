@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, View, StyleSheet, ActivityIndicator } from 'react-native';
 import Text from '../Shared/Text';
 import theme from '../../theme';
-import RepositoryItem from './RepositoryItem';
+import RepositoryItem from '../RepositoryList/RepositoryItem';
 import { format } from 'date-fns';
 
 const styles = StyleSheet.create({
@@ -62,7 +62,7 @@ const ReviewItem = ({ review }) => {
         <View style={styles.flexColItem}>
           <Text fontWeight="bold" fontSize="subheading">{review.user.username}</Text>
           <Text color="textSecondary">{format(new Date(review.createdAt), 'dd.MM.yyyy')}</Text>
-          <Text color="textPrimary" style={styles.reviewText}>{review.text}</Text>
+          <Text style={styles.reviewText}>{review.text}</Text>
         </View>
       </View>
     </View>
