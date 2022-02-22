@@ -22,5 +22,6 @@
 - Backend server should be set up and started. 
 - For the Rate Repository App, begin with installing dependencies: `npm install`
 - Open Expo developer tools in the browser: `npm start`
+- A local .env file must be created in the root of the Rate Repository App directory. It should include ENV=development and APOLLO_URI="Apollo Server's URL used, where localhost is replaced by local network IP address and ends with :port/graphql". Local network IP address is visible in Expo dev tools.
 - From Expo dev tools screen you can choose to run the App in web browser or eg. Android device/emulator
 - To run the App on Android emulator you can also use: `npm run android`
