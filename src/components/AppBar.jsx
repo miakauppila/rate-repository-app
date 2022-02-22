@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
     paddingBottom: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
     backgroundColor: theme.colors.appBar,
   },
   scrollView: {
@@ -32,10 +32,6 @@ const AppBar = () => {
   // access ApolloClient instance used by the application 
   const apolloClient = useApolloClient();
 
-  const handleOnPress = () => {
-    console.log('handleOnPress');
-  };
-
   const handleSignOut = async () => {
     await authStorage.removeAccessToken();
     apolloClient.resetStore();
@@ -44,21 +40,21 @@ const AppBar = () => {
   return (
     <View style={styles.container}>
       <ScrollView horizontal={true} contentContainerStyle={styles.scrollView}>
-        <AppBarTab linkTo="/" handleOnPress={handleOnPress} tabText={'Repositories'} />
+        <AppBarTab linkTo="/" tabText={'Repositories'} />
         {authorizedUser &&
-          <AppBarTab linkTo="/review" handleOnPress={handleOnPress} tabText={'Create a review'} />
+          <AppBarTab linkTo="/review" tabText={'Create a review'} />
         }
         {authorizedUser &&
-          <AppBarTab linkTo="/myreviews" handleOnPress={handleOnPress} tabText={'My reviews'} />
+          <AppBarTab linkTo="/myreviews" tabText={'My reviews'} />
         }
         {authorizedUser &&
           <AppBarTab linkTo="/" handleOnPress={handleSignOut} tabText={'Sign out'} />
         }
         {!authorizedUser &&
-          <AppBarTab linkTo="/signin" handleOnPress={handleOnPress} tabText={'Sign in'} />
+          <AppBarTab linkTo="/signin" tabText={'Sign in'} />
         }
         {!authorizedUser &&
-          <AppBarTab linkTo="/signup" handleOnPress={handleOnPress} tabText={'Sign up'} />
+          <AppBarTab linkTo="/signup" tabText={'Sign up'} />
         }
       </ScrollView>
     </View>

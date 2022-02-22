@@ -12,7 +12,6 @@ const Review = () => {
 
   const handleSubmit = async (values) => {
     const { ownerName, repositoryName, rating, review } = values;
-    console.log('values', values);
     const ratingNumber = parseInt(rating);
 
     try {

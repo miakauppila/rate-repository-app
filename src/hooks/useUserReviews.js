@@ -8,7 +8,7 @@ const useUserReviews = () => {
         fetchPolicy: 'cache-and-network'
     });
 
-    console.log('useUserReviews', data);
+    //console.log('useUserReviews', data);
 
     const reviews = data?.authorizedUser?.reviews;
 

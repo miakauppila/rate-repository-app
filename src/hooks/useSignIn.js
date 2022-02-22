@@ -8,7 +8,7 @@ const useSignIn = () => {
     const authStorage = useAuthStorage();
     // GraphQL mutation hook
     const [mutateFn, result] = useMutation(AUTHORIZE_USER);
-    console.log('result in useSignIn:', result);
+    //console.log('result in useSignIn:', result);
 
     // access ApolloClient instance being used by the application 
     const apolloClient = useApolloClient();
